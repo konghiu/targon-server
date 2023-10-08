@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <form action="/v/auth/sign-in" method="post">
+            <label for="email">email</label>
+            <input type="email" name="email" />
+            <label for="password">password</label>
+            <input type="password" name="password" />
+            <input type="submit" value="sign in" />
+        </form>
+        <form action="/v/auth/google" method="get">
+            <input type="submit" value="sign in with google" />
+        </form>
+        <!-- <button onclick="">Sign in with Google</button> -->
+    </body>
+    <script>
+        const signInGG = document.getElementById("signInWithGoogle");
+
+        const getGoogleAuthUrl = () => {
+            const rootUrl = "https://accounts.google.com/o/oauth2/v2/auth";
+            const options = {
+                redirect_uri: `http://localhost:8000/v/auth/google`,
+                client_id:
+                    "752838172831-ea9nfpal54soegp45aqn7g67u3dcc8b8.apps.googleusercontent.com",
+                access_type: "offline",
+                response_type: "code",
+                prompt: "consent",
+                scope: [
+                    "https://www.googleapis.com/auth/userinfo.profile",
+                    "https://www.googleapis.com/auth/userinfo.email",
+                ].join(" "),
+            };
+            const queryString = new URLSearchParams(options).toString();
+
+            return `${rootUrl}?${queryString}`;
+        };
+
+        signInGG.onclick = async (e) => {
+            console.log("cong hieu dep trai");
+            // await axios.get("http://localhost:8000/products?page=1")
+            //     .then(res => console.log(res))
+            //     .catch(err => console.log(err))
+        };
+    </script>
+</html>

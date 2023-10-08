@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <style>
+        input {
+            width: 500px;
+        }
+        .container__preview {
+            width: 200px;
+        }
+        .container__preview img {
+            width: 100%;
+        }
+    </style>
+    <body>
+        <form
+            id="form__insert"
+            method="post"
+            action="/products/insert"
+            enctype="multipart/form-data"
+            style="display: flex; align-items: center; flex-direction: column"
+        >
+            <label for="name">name</label>
+            <input type="text" name="name" id="name" />
+            <label for="price">price</label>
+            <input type="text" name="price" id="price" />
+            <label for="image">image</label>
+            <input type="file" name="image" id="image" />
+            <div class="container__preview">
+                <img id="preview" src="" alt="preview" />
+            </div>
+            <input type="submit" />
+        </form>
+    </body>
+    <script src="/js/insert.js"></script>
+</html>

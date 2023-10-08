@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <style>
+        input[type="email"] {
+            display: none;
+        }
+    </style>
+    <body>
+        <p id="counter"></p>
+        <form action="/email/verify" method="post" id="formVerifyEmail">
+            <input type="email" name="email" value="<%= email%>" />
+            <label for="code">ma xac nhan</label>
+            <input type="text" name="code" id="code" />
+            <input type="submit" id="submit" />
+        </form>
+        <form action="/email/verify" method="get">
+            <input type="email" name="email" value="<%= email%>" />
+            <input type="submit" value="get new code" />
+        </form>
+        <b style="color: red" id="warning"><%= warning %></b>
+
+        <script>
+            const textWarn = "Please enter code";
+            const countStorage = localStorage.getItem("count");
+            const counter = document.getElementById("counter");
+            const code = document.getElementById("code");
+            const warning = document.getElementById("warning");
+            const form = document.getElementById("formVerifyEmail");
+
+            let count = countStorage || 60;
+
+            const timer = setInterval(() => {
+                if (count < 0) {
+                    counter.innerHTML = "";
+                    clearInterval(timer);
+                    localStorage.removeItem("count");
+                    warning.innerHTML = "Verification code was expired.";
+                } else {
+                    localStorage.setItem("count", --count);
+                    counter.innerHTML = count;
+                }
+            }, 1000);
+
+            form.onsubmit = async (e) => {
+                if (!code.value) {
+                    warning.innerHTML = textWarn;
+                    return e.preventDefault();
+                }
+                localStorage.setItem("count", 0);
+            };
+        </script>
+    </body>
+</html>
